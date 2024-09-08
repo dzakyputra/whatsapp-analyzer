@@ -16,6 +16,10 @@ const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 interface PersonStats {
   totalChats: number;
   totalWords: number;
+  totalStickers: number;
+  totalImages: number;
+  totalVideos: number;
+  totalTexts: number;
 }
 
 interface DailyStats {
@@ -132,16 +136,37 @@ export default function Home() {
       if (chatStart) {
         // Process previous message if exists
         if (currentPerson) {
+
+          // if (currentMessage.trim() === 'Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them.') {
+          //   return
+          // }
+
           const wordCount = countWords(currentMessage);
           totalWords += wordCount;
           if (!persons[currentPerson]) {
             persons[currentPerson] = {
               totalChats: 0,
               totalWords: 0,
+              totalImages: 0,
+              totalStickers: 0,
+              totalVideos: 0,
+              totalTexts: 0,
             }
           }
-          persons[currentPerson].totalWords = (persons[currentPerson].totalWords || 0) + wordCount;
+
+          if (currentMessage.trim() === 'image omitted') {
+            persons[currentPerson].totalImages = (persons[currentPerson].totalImages || 0) + 1;
+          } else if (currentMessage.trim() === 'video omitted') {
+            persons[currentPerson].totalVideos = (persons[currentPerson].totalVideos || 0) + 1;
+          } else if (currentMessage.trim() === 'sticker omitted') {
+            persons[currentPerson].totalStickers = (persons[currentPerson].totalStickers || 0) + 1;
+          } else {
+            persons[currentPerson].totalTexts = (persons[currentPerson].totalTexts || 0) + 1;
+            persons[currentPerson].totalWords = (persons[currentPerson].totalWords || 0) + wordCount;
+          }
+
           persons[currentPerson].totalChats = (persons[currentPerson].totalChats || 0) + 1;
+
           allMessages += currentMessage;
           messages.push({
             message: currentMessage,
@@ -194,9 +219,23 @@ export default function Home() {
         persons[currentPerson] = {
           totalChats: 0,
           totalWords: 0,
+          totalImages: 0,
+          totalStickers: 0,
+          totalVideos: 0,
+          totalTexts: 0,
         }
       }
-      persons[currentPerson].totalWords = (persons[currentPerson].totalWords || 0) + wordCount;
+      if (currentMessage == 'image omitted') {
+        persons[currentPerson].totalImages = (persons[currentPerson].totalImages || 0) + 1;
+      } else if (currentMessage == 'video omitted') {
+        persons[currentPerson].totalVideos = (persons[currentPerson].totalVideos || 0) + 1;
+      } else if (currentMessage == 'sticker omitted') {
+        persons[currentPerson].totalStickers = (persons[currentPerson].totalStickers || 0) + 1;
+      } else {
+        persons[currentPerson].totalTexts = (persons[currentPerson].totalTexts || 0) + 1;
+        persons[currentPerson].totalWords = (persons[currentPerson].totalWords || 0) + wordCount;
+      }
+
       persons[currentPerson].totalChats = (persons[currentPerson].totalChats || 0) + 1;
     }
 
@@ -511,8 +550,12 @@ export default function Home() {
                     <thead>
                       <tr>
                         <th>Name</th>
-                        <th>Total Chats</th>
                         <th>Total Words</th>
+                        <th>Total Chats</th>
+                        <th>Texts</th>
+                        <th>Images</th>
+                        <th>Videos</th>
+                        <th>Stickers</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -520,8 +563,12 @@ export default function Home() {
                       {Object.entries(stats.persons).map(([person, stats]) => (
                         <tr key={person}>
                           <td>{person}</td>
-                          <td>{formatNumber(stats.totalChats)}</td>
                           <td>{formatNumber(stats.totalWords)}</td>
+                          <td>{formatNumber(stats.totalChats)}</td>
+                          <td>{formatNumber(stats.totalTexts)}</td>
+                          <td>{formatNumber(stats.totalImages)}</td>
+                          <td>{formatNumber(stats.totalVideos)}</td>
+                          <td>{formatNumber(stats.totalStickers)}</td>
                         </tr>
                       ))}
                     </tbody>
