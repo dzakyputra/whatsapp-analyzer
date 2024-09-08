@@ -518,7 +518,7 @@ export default function Home() {
                     <tbody>
 
                       {Object.entries(stats.persons).map(([person, stats]) => (
-                        <tr>
+                        <tr key={person}>
                           <td>{person}</td>
                           <td>{formatNumber(stats.totalChats)}</td>
                           <td>{formatNumber(stats.totalWords)}</td>
