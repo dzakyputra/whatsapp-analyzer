@@ -14,6 +14,12 @@ interface PersonStats {
   totalImages: number;
   totalVideos: number;
   totalTexts: number;
+  isHighestChats: boolean;
+  isHighestWords: boolean;
+  isHighestStickers: boolean;
+  isHighestImages: boolean;
+  isHighestVideos: boolean;
+  isHighestTexts: boolean;
 }
 
 interface DailyStats {
@@ -123,6 +129,26 @@ export default function Home() {
     let currentMessage = '';
     let allMessages = '';
 
+    const uniqueNames = new Map<string, boolean>();
+    let ignoredName = '';
+    let isGroup = false;
+
+    for (let line of lines) {
+      line = line.replace(/\u200E/g, '')
+      const chatStart = line.match(/^\[(\d{2}\/\d{2}\/\d{2}, \d{2}\.\d{2}\.\d{2})] (.*?): (.*)/);
+      if (chatStart) {
+        const [, timestamp, person] = chatStart;
+        if (uniqueNames.size == 0) {
+          ignoredName = person
+        }
+        uniqueNames.set(person, true)
+      }
+      if (uniqueNames.size > 2) {
+        isGroup = true
+        break
+      }
+    };
+
     lines.forEach(line => {
       line = line.replace(/\u200E/g, '')
       // const chatStart = line.match(/^\[(.*?)\] (.*?):/);
@@ -131,12 +157,7 @@ export default function Home() {
         // Process previous message if exists
         if (currentPerson) {
 
-          // if (currentMessage.trim() === 'Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them.') {
-          //   return
-          // }
-
           const wordCount = countWords(currentMessage);
-          totalWords += wordCount;
           if (!persons[currentPerson]) {
             persons[currentPerson] = {
               totalChats: 0,
@@ -145,6 +166,12 @@ export default function Home() {
               totalStickers: 0,
               totalVideos: 0,
               totalTexts: 0,
+              isHighestChats: false,
+              isHighestWords: false,
+              isHighestStickers: false,
+              isHighestImages: false,
+              isHighestVideos: false,
+              isHighestTexts: false,
             }
           }
 
@@ -155,6 +182,7 @@ export default function Home() {
           } else if (currentMessage.trim() === 'sticker omitted') {
             persons[currentPerson].totalStickers = (persons[currentPerson].totalStickers || 0) + 1;
           } else {
+            totalWords += wordCount;
             persons[currentPerson].totalTexts = (persons[currentPerson].totalTexts || 0) + 1;
             persons[currentPerson].totalWords = (persons[currentPerson].totalWords || 0) + wordCount;
           }
@@ -173,9 +201,23 @@ export default function Home() {
         const hour = extractHour(timestamp);
         const weekday = getWeekday(date);
 
+        currentMessage = line.substring(line.indexOf(':') + 1).trim() + ' ';
+        if (currentMessage.trim() === 'Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them.') {
+          currentPerson = '';
+          currentMessage = '';
+          allMessages = '';
+          return
+        }
+
+        if (isGroup && (person.trim() === ignoredName.trim())) {
+          currentPerson = '';
+          currentMessage = '';
+          allMessages = '';
+          return
+        }
+
         totalChats++;
         currentPerson = person;
-        currentMessage = line.substring(line.indexOf(':') + 1).trim() + ' ';
 
         // Update daily stats
         if (!dailyChats[date]) {
@@ -208,7 +250,6 @@ export default function Home() {
 
     if (currentPerson) {
       const wordCount = countWords(currentMessage);
-      totalWords += wordCount;
       if (!persons[currentPerson]) {
         persons[currentPerson] = {
           totalChats: 0,
@@ -217,15 +258,22 @@ export default function Home() {
           totalStickers: 0,
           totalVideos: 0,
           totalTexts: 0,
+          isHighestChats: false,
+          isHighestWords: false,
+          isHighestStickers: false,
+          isHighestImages: false,
+          isHighestVideos: false,
+          isHighestTexts: false,
         }
       }
-      if (currentMessage == 'image omitted') {
+      if (currentMessage.trim() === 'image omitted') {
         persons[currentPerson].totalImages = (persons[currentPerson].totalImages || 0) + 1;
-      } else if (currentMessage == 'video omitted') {
+      } else if (currentMessage.trim() === 'video omitted') {
         persons[currentPerson].totalVideos = (persons[currentPerson].totalVideos || 0) + 1;
-      } else if (currentMessage == 'sticker omitted') {
+      } else if (currentMessage.trim() === 'sticker omitted') {
         persons[currentPerson].totalStickers = (persons[currentPerson].totalStickers || 0) + 1;
       } else {
+        totalWords += wordCount;
         persons[currentPerson].totalTexts = (persons[currentPerson].totalTexts || 0) + 1;
         persons[currentPerson].totalWords = (persons[currentPerson].totalWords || 0) + wordCount;
       }
@@ -245,6 +293,8 @@ export default function Home() {
     const dataWeeklyPerPerson = transformDataWeeklyPerPerson(chatStats);
     const dataHourlyPerPerson = transformDataHourlyPerPerson(chatStats);
     const dataTotalPerDay = transformDataTotalPerDay(chatStats);
+
+    setHighestFields(chatStats)
 
     setChartData({
       dataWeeklyPerPerson,
@@ -330,6 +380,31 @@ export default function Home() {
     xaxis: {
       type: 'datetime',
     }
+  }
+
+  function setHighestFields(chatStats: ChatStats): void {
+    // Initialize max values
+    let maxChats = 0, maxWords = 0, maxStickers = 0, maxImages = 0, maxVideos = 0, maxTexts = 0;
+  
+    // Step 1: Find the maximum value for each stat
+    Object.values(chatStats.persons).forEach((person) => {
+      maxChats = Math.max(maxChats, person.totalChats);
+      maxWords = Math.max(maxWords, person.totalWords);
+      maxStickers = Math.max(maxStickers, person.totalStickers);
+      maxImages = Math.max(maxImages, person.totalImages);
+      maxVideos = Math.max(maxVideos, person.totalVideos);
+      maxTexts = Math.max(maxTexts, person.totalTexts);
+    });
+  
+    // Step 2: Set the isHighest... fields based on the max values
+    Object.entries(chatStats.persons).forEach(([personName, person]) => {
+      person.isHighestChats = person.totalChats === maxChats;
+      person.isHighestWords = person.totalWords === maxWords;
+      person.isHighestStickers = person.totalStickers === maxStickers;
+      person.isHighestImages = person.totalImages === maxImages;
+      person.isHighestVideos = person.totalVideos === maxVideos;
+      person.isHighestTexts = person.totalTexts === maxTexts;
+    });
   }
 
   function getUnixTimestamp(dateString: string): number {
@@ -557,12 +632,42 @@ export default function Home() {
                       {Object.entries(stats.persons).map(([person, stats]) => (
                         <tr key={person}>
                           <td>{person}</td>
-                          <td>{formatNumber(stats.totalWords)}</td>
-                          <td>{formatNumber(stats.totalChats)}</td>
-                          <td>{formatNumber(stats.totalTexts)}</td>
-                          <td>{formatNumber(stats.totalImages)}</td>
-                          <td>{formatNumber(stats.totalVideos)}</td>
-                          <td>{formatNumber(stats.totalStickers)}</td>
+
+                          {stats.isHighestWords && stats.totalWords > 0 ? (
+                            <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalWords)}</td>
+                          ) : (
+                            <td className='text-center'>{formatNumber(stats.totalWords)}</td>
+                          )}
+
+                          {stats.isHighestChats && stats.totalChats > 0 ? (
+                            <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalChats)}</td>
+                          ) : (
+                            <td className='text-center'>{formatNumber(stats.totalChats)}</td>
+                          )}
+
+                          {stats.isHighestTexts && stats.totalTexts > 0 ? (
+                            <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalTexts)}</td>
+                          ) : (
+                            <td className='text-center'>{formatNumber(stats.totalTexts)}</td>
+                          )}
+
+                          {stats.isHighestImages && stats.totalImages > 0 ? (
+                            <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalImages)}</td>
+                          ) : (
+                            <td className='text-center'>{formatNumber(stats.totalImages)}</td>
+                          )}
+
+                          {stats.isHighestVideos && stats.totalVideos > 0 ? (
+                            <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalVideos)}</td>
+                          ) : (
+                            <td className='text-center'>{formatNumber(stats.totalVideos)}</td>
+                          )}
+
+                          {stats.isHighestStickers && stats.totalStickers > 0 ? (
+                            <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalStickers)}</td>
+                          ) : (
+                            <td className='text-center'>{formatNumber(stats.totalStickers)}</td>
+                          )}
                         </tr>
                       ))}
                     </tbody>
