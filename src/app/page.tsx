@@ -1,14 +1,8 @@
 "use client"
 
 import { useState } from 'react';
-import Head from 'next/head';
 import JSZip from 'jszip';
-
 import dynamic from 'next/dynamic';
-
-import SalesChart from '../components/Vis1';
-import { DateTime } from 'next-auth/providers/kakao';
-
 import { ApexOptions } from 'apexcharts';
 
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
