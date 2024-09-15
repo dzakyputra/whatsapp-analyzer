@@ -631,7 +631,7 @@ export default function Home() {
 
                       {Object.entries(stats.persons).map(([person, stats]) => (
                         <tr key={person}>
-                          <td>{person}</td>
+                          <td className='font-semibold'>{person}</td>
 
                           {stats.isHighestWords && stats.totalWords > 0 ? (
                             <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalWords)}</td>
