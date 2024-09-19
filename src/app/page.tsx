@@ -308,8 +308,6 @@ export default function Home() {
     const dataHourlyPerPerson = transformDataHourlyPerPerson(chatStats);
     const dataTotalPerDay = transformDataTotalPerDay(chatStats);
 
-    console.log("HALAH", chatStats.hourlyChats)
-
     setHighestFields(chatStats)
 
     setChartData({
