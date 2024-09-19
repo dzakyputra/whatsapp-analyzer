@@ -735,49 +735,49 @@ export default function Home() {
             <div className="grid grid-cols-12 gap-6">
 
               {/* Row 1 */}
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-1">
+              <div className="col-span-12 lg:col-span-1 xl:col-span-1">
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+              <div className="col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
                 <h2 className="font-semibold">Total Chats By Day</h2>
                 <ApexChart type="bar" options={optionDaily} series={chartData.dataDaily} />
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+              <div className="col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
                 <h2 className="font-semibold">Total Chats By Day (per Person)</h2>
                 <ApexChart type="bar" options={optionDailyPerPerson} series={chartData.dataDailyPerPerson} />
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-1">
+              <div className="col-span-12 lg:col-span-1 xl:col-span-1">
               </div>
 
               {/* Row 2 */}
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-1">
+              <div className="col-span-12 lg:col-span-1 xl:col-span-1">
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+              <div className="col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
                 <h2 className="font-semibold">Total Chats By Hour</h2>
                 <ApexChart type="bar" options={optionHourly} series={chartData.dataHourly} />
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+              <div className="col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
                 <h2 className="font-semibold">Total Chats By Hour (per Person)</h2>
                 <ApexChart type="bar" options={optionHourlyPerPerson} series={chartData.dataHourlyPerPerson} />
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-1">
+              <div className="col-span-12 lg:col-span-1 xl:col-span-1">
               </div>
 
               {/* Row 3 */}
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-1">
+              <div className="col-span-12 lg:col-span-1 xl:col-span-1">
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-10 xl:col-span-10 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+              <div className="col-span-12  lg:col-span-10 xl:col-span-10 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
                   <h2 className="font-semibold">Total Chats Over Time</h2>
                   <ApexChart type="bar" options={optionTotalByTime} series={chartData.dataTotalPerDay} height={400} />
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-1">
+              <div className="col-span-12 lg:col-span-1 xl:col-span-1">
               </div>
 
             </div>
