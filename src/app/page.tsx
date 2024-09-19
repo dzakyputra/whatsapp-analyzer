@@ -521,20 +521,20 @@ export default function Home() {
     </div>
 
     {/* Upload Box */}
-    <div className="mt-10 max-w-3xl w-full mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl mx-auto">
+    <div className="mt-10 max-w-3xl w-full mx-auto">
+        <div className="max-w-2xl mx-auto p-8 rounded-xl shadow shadow-lg border">
           <div className="flex items-center justify-center w-full">
             <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                 <p className="mb-2 text-sm text-gray-500 text-center"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                <p className="text-xs text-gray-500 text-center">Whatsapp Chat History Data in .ZIP or .TXT Format</p>
+                <p className="text-xs text-gray-500 text-center">Whatsapp chat history data in .ZIP or .TXT format</p>
               </div>
               <input id="dropzone-file" type="file" className="hidden" onChange={handleFileChange} accept=".zip,.txt"/>
             </label>
           </div>
         </div>
-        <p className="mt-5 text-gray-600 text-xs italic text-center">
+        <p className="mt-5 text-gray-400 text-xs italic text-center">
           Your chat data is processed securely in your own browser and never stored in our servers or anywhere else.
         </p>
     </div>
@@ -551,17 +551,24 @@ export default function Home() {
           )}
 
           {(stats && chartData) && (
+
             <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+
+            <div className="relative flex py-5 items-center">
+                <div className="flex-grow border-t border-gray-200"></div>
+                <span className="flex-shrink mx-4 text-gray-400">Chat Statistics</span>
+                <div className="flex-grow border-t border-gray-200"></div>
+            </div>
 
             <div className="stats shadow flex max-w-full">
               <div className="stat place-items-center">
                 <div className="stat-title">Total Chats</div>
-                <div className="stat-value">{formatNumber(stats.totalChats)}</div>
+                <div className="stat-value text-gray-600">{formatNumber(stats.totalChats)}</div>
               </div>
 
               <div className="stat place-items-center">
                 <div className="stat-title">Total Words</div>
-                <div className="stat-value">{formatNumber(stats.totalWords)}</div>
+                <div className="stat-value text-gray-600">{formatNumber(stats.totalWords)}</div>
               </div>
             </div>
         
