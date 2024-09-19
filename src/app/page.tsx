@@ -56,7 +56,7 @@ interface TotalPerPerson {
   data: number[];
 }
 
-interface TotalPerDay {
+interface TotalData {
   data: Total[];
 }
 
@@ -65,10 +65,21 @@ interface Total {
   y: number;
 }
 
+interface TotalDataString {
+  data: TotalString[];
+}
+
+interface TotalString {
+  x: string;
+  y: number;
+}
+
 interface ChartData {
-  dataWeeklyPerPerson: TotalPerPerson[];
+  dataDaily: TotalDataString[];
+  dataDailyPerPerson: TotalPerPerson[];
+  dataHourly: TotalDataString[];
   dataHourlyPerPerson: TotalPerPerson[];
-  dataTotalPerDay: TotalPerDay[];
+  dataTotalPerDay: TotalData[];
 }
 
 export default function Home() {
@@ -81,7 +92,6 @@ export default function Home() {
     if (e.target.files) {
       setFile(e.target.files[0]);
       setError(null);
-      console.log("HOLAAAAA")
       handleUpload(e.target.files[0]);
     }
   };
@@ -292,14 +302,20 @@ export default function Home() {
       weekdayChats,
     }
 
-    const dataWeeklyPerPerson = transformDataWeeklyPerPerson(chatStats);
+    const dataDaily = transformDataDaily(chatStats);
+    const dataDailyPerPerson = transformDataDailyPerPerson(chatStats);
+    const dataHourly = transformDataHourly(chatStats);
     const dataHourlyPerPerson = transformDataHourlyPerPerson(chatStats);
     const dataTotalPerDay = transformDataTotalPerDay(chatStats);
+
+    console.log("HALAH", chatStats.hourlyChats)
 
     setHighestFields(chatStats)
 
     setChartData({
-      dataWeeklyPerPerson,
+      dataDaily,
+      dataDailyPerPerson,
+      dataHourly,
       dataHourlyPerPerson,
       dataTotalPerDay
     });
@@ -339,9 +355,9 @@ export default function Home() {
     }
   };
 
-  const optionWeeklyPerPerson = {
+  const optionDaily = {
     chart: {
-      id: 'weekly-per-person',
+      id: 'daily',
       toolbar: {
         show: false
       },
@@ -351,6 +367,36 @@ export default function Home() {
     },
     xaxis: {
       categories: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    }
+  }
+
+  const optionDailyPerPerson = {
+    chart: {
+      id: 'daily-per-person',
+      toolbar: {
+        show: false
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    xaxis: {
+      categories: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    }
+  }
+
+  const optionHourly = {
+    chart: {
+      id: 'hourly',
+      toolbar: {
+        show: false
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    xaxis: {
+      categories: ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23']
     }
   }
 
@@ -423,9 +469,9 @@ export default function Home() {
     return Math.floor(date.getTime());
   }
 
-  function transformDataTotalPerDay(chatStats: ChatStats): TotalPerDay[] {
+  function transformDataTotalPerDay(chatStats: ChatStats): TotalData[] {
     const total: Total[] = []
-    const totalPerDay: TotalPerDay[] = []
+    const totalPerDay: TotalData[] = []
 
     Object.entries(chatStats.dailyChats).forEach(([date, dailyStats]) => {
       total.push({
@@ -435,7 +481,7 @@ export default function Home() {
 
     });
 
-    const real: TotalPerDay = {
+    const real: TotalData = {
       data: total
     }
 
@@ -444,7 +490,32 @@ export default function Home() {
     return totalPerDay
   }
 
-  function transformDataWeeklyPerPerson(chatStats: ChatStats): TotalPerPerson[] {
+  function transformDataDaily(chatStats: ChatStats): TotalDataString[] {
+    const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const totalPerDay: TotalDataString[] = []
+
+    const result: TotalDataString = { data: [] };
+
+    weekdays.forEach(hour => {
+      const data = chatStats.weekdayChats[hour]
+      let tot = 0
+      if (data === undefined || data === null) {
+        tot = 0
+      } else {
+        tot = data.total
+      }
+      result.data.push({
+        x: hour,
+        y: tot
+      })
+    })
+
+    totalPerDay.push(result)
+  
+    return totalPerDay
+  }
+  
+  function transformDataDailyPerPerson(chatStats: ChatStats): TotalPerPerson[] {
     const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const personMap = new Map<string, number[]>();
   
@@ -473,6 +544,31 @@ export default function Home() {
   
     // Convert the Map to the desired array format
     return Array.from(personMap, ([name, data]) => ({ name, data }));
+  }
+
+  function transformDataHourly(chatStats: ChatStats): TotalDataString[] {
+    const weekdays = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'];
+    const totalPerDay: TotalDataString[] = []
+
+    const result: TotalDataString = { data: [] };
+
+    weekdays.forEach(hour => {
+      const data = chatStats.hourlyChats[hour]
+      let tot = 0
+      if (data === undefined || data === null) {
+        tot = 0
+      } else {
+        tot = data.total
+      }
+      result.data.push({
+        x: hour,
+        y: tot
+      })
+    })
+
+    totalPerDay.push(result)
+  
+    return totalPerDay
   }
 
   function transformDataHourlyPerPerson(chatStats: ChatStats): TotalPerPerson[] {
@@ -641,37 +737,49 @@ export default function Home() {
             <div className="grid grid-cols-12 gap-6">
 
               {/* Row 1 */}
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-2">
+              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-1">
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-5 xl:col-span-4 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+              <div className="sm:col-span-12 md:col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
                 <h2 className="font-semibold">Total Chats By Day</h2>
-                <ApexChart type="bar" options={optionWeeklyPerPerson} series={chartData.dataWeeklyPerPerson} />
+                <ApexChart type="bar" options={optionDaily} series={chartData.dataDaily} />
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-5 xl:col-span-4 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
-                <h2 className="font-semibold">Total Chats By Hour</h2>
-                <ApexChart type="bar" options={optionHourlyPerPerson} series={chartData.dataHourlyPerPerson} />
+              <div className="sm:col-span-12 md:col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+                <h2 className="font-semibold">Total Chats By Day (per Person)</h2>
+                <ApexChart type="bar" options={optionDailyPerPerson} series={chartData.dataDailyPerPerson} />
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-2">
+              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-1">
               </div>
 
               {/* Row 2 */}
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-2">
+              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-1">
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-5 xl:col-span-4 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+              <div className="sm:col-span-12 md:col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+                <h2 className="font-semibold">Total Chats By Hour</h2>
+                <ApexChart type="bar" options={optionHourly} series={chartData.dataHourly} />
+              </div>
+
+              <div className="sm:col-span-12 md:col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+                <h2 className="font-semibold">Total Chats By Hour (per Person)</h2>
+                <ApexChart type="bar" options={optionHourlyPerPerson} series={chartData.dataHourlyPerPerson} />
+              </div>
+
+              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-1">
+              </div>
+
+              {/* Row 3 */}
+              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-1">
+              </div>
+
+              <div className="sm:col-span-12 md:col-span-12 lg:col-span-10 xl:col-span-10 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
                   <h2 className="font-semibold">Total Chats Over Time</h2>
-                  <ApexChart type="bar" options={optionTotalByTime} series={chartData.dataTotalPerDay} />
+                  <ApexChart type="bar" options={optionTotalByTime} series={chartData.dataTotalPerDay} height={400} />
               </div>
 
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-5 xl:col-span-4 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
-                  <h2 className="font-semibold">Total Chats Over Time</h2>
-                  <ApexChart type="bar" options={optionTotalByTime} series={chartData.dataTotalPerDay} />
-              </div>
-
-              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-2">
+              <div className="sm:col-span-12 md:col-span-12 lg:col-span-1 xl:col-span-1">
               </div>
 
             </div>
