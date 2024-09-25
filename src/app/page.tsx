@@ -87,6 +87,8 @@ export default function Home() {
   const [stats, setStats] = useState<ChatStats | null>(null);
   const [chartData, setChartData] = useState<ChartData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isVisibleUploadBox, setIsVisibleUploadBox] = useState(true);
+  const [isVisibleResult, setIsVisibleResult] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -94,6 +96,19 @@ export default function Home() {
       setError(null);
       handleUpload(e.target.files[0]);
     }
+  };
+
+  const toggleVisibility = () => {
+    setIsVisibleUploadBox(!isVisibleUploadBox);
+    setIsVisibleResult(!isVisibleResult);
+  }
+
+  const toggleVisibilityUploadBox = () => {
+    setIsVisibleUploadBox(!isVisibleUploadBox);
+  };
+
+  const toggleVisibilityResult = () => {
+    setIsVisibleResult(!isVisibleResult);
   };
 
   function formatNumber(num: number): string {
@@ -319,6 +334,8 @@ export default function Home() {
     });
 
     setStats(chatStats);
+    toggleVisibilityUploadBox();
+    toggleVisibilityResult();
   };
 
   const handleUpload = async (file: File) => {
@@ -610,187 +627,227 @@ export default function Home() {
         Chat Analyzer
       </h1>
       <p className="mt-3 text-gray-600">
-        Uncover the story behind your chats. Turn conversations into insights. 
+        Explore your chat history data through numbers and charts
       </p>
     </div>
 
     {/* Upload Box */}
-    <div className="mt-10 max-w-3xl w-full mx-auto px-4">
-        <div className="max-w-2xl mx-auto p-8 rounded-xl shadow shadow-lg border">
-          <div className="flex items-center justify-center w-full">
-            <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-              <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <svg className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                <p className="mb-2 text-sm text-gray-500 text-center"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                <p className="text-xs text-gray-500 text-center">Whatsapp chat history data in .ZIP or .TXT format</p>
-              </div>
-              <input id="dropzone-file" type="file" className="hidden" onChange={handleFileChange} accept=".zip,.txt"/>
-            </label>
+    {isVisibleUploadBox ? 
+    
+      (<div className="mt-10 max-w-3xl w-full mx-auto px-4">
+        <div className="max-w-2xl mx-auto p-8 rounded-xl shadow-xl border border-gray-100">
+
+        <div className="flex items-center">
+
+          <div role="tablist" className="tabs tabs-bordered w-full">
+            <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="WhatsApp" defaultChecked/>
+            <div role="tabpanel" className="tab-content">
+
+                <label htmlFor="dropzone-file" className="mt-5 flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    <p className="mb-2 text-sm text-gray-500 text-center"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                    <p className="text-xs text-gray-500 text-center">Whatsapp chat history data in .zip or .txt format</p>
+                  </div>
+                  <input id="dropzone-file" type="file" className="hidden" onChange={handleFileChange} accept=".zip,.txt"/>
+                </label>
+              
+            </div>
+
+            <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="Telegram" disabled />
+            <div role="tabpanel" className="tab-content py-2">
+              tes bos
+            </div>
+
+            <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="Discord" disabled />
+            <div role="tabpanel" className="tab-content py-2">
+              tes bos
+            </div>
+
+            {/* <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="How to Export Chat Data" />
+            <div role="tabpanel" className="tab-content p-10">Tab content 3</div> */}
           </div>
+
         </div>
-        <p className="mt-5 text-gray-400 text-xs italic text-center">
-          Your chat data is processed securely in your own browser and never stored in our servers or anywhere else.
+
+        </div>
+        <p className="mt-7 text-gray-400 text-xs italic text-center">
+          Your chat data is processed securely in your own browser and never stored in our servers or anywhere else
         </p>
-    </div>
+      </div>) : 
+    
+      (<div className="mt-10 max-w-lg w-full mx-auto px-4 flex justify-center">
+          <button onClick={toggleVisibility} className="text-white bg-gray-600 hover:bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center ">
+            Upload Another Data
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rtl:rotate-180 w-3.5 h-3.5 ms-2">
+              <path strokeLinecap="round" stroke-width="3" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+            </svg>
+
+          </button>
+      </div>)
+    }
 
     {/* Visualization */}
-    <div className="relative px-4 bg-white">
-      <div className="px-10 mx-auto">
+    {isVisibleResult && 
+      (<div className="relative px-4 bg-white">
+        <div className="px-10 mx-auto">
 
-          {error && (
-            <div className="py-4 text-red-500 text-center">
-              {error}
-            </div>
-          )}
+            {error && (
+              <div className="py-4 text-red-500 text-center">
+                {error}
+              </div>
+            )}
 
-          {(stats && chartData) && (
+            {(stats && chartData) && (
 
-            <div>
+              <div>
 
-            {/* Chat Statistics */}
-            <div className="flex justify-center mb-12">
-              <div className="max-w-4xl text-base leading-6 space-y-4 text-gray-700">
-                <div className="relative flex py-5 items-center">
-                    <div className="flex-grow border-t border-gray-200"></div>
-                    <span className="flex-shrink mx-4 text-gray-400">Chat Statistics</span>
-                    <div className="flex-grow border-t border-gray-200"></div>
-                </div>
+              {/* Chat Statistics */}
+              <div className="flex justify-center mb-12">
+                <div className="max-w-4xl text-base leading-6 space-y-4 text-gray-700">
+                  {/* <div className="relative flex py-5 items-center">
+                      <div className="flex-grow border-t border-gray-200"></div>
+                      <span className="flex-shrink mx-4 text-gray-600">Chat Statistics</span>
+                      <div className="flex-grow border-t border-gray-200"></div>
+                  </div> */}
 
-                <div className="stats shadow flex max-w-full">
-                  <div className="stat place-items-center">
-                    <div className="stat-title">Total Chats</div>
-                    <div className="stat-value text-gray-600">{formatNumber(stats.totalChats)}</div>
+                  <div className="stats shadow flex max-w-full mt-10">
+                    <div className="stat place-items-center">
+                      <div className="stat-title">Total Words</div>
+                      <div className="stat-value text-gray-600">{formatNumber(stats.totalWords)}</div>
+                    </div>
+
+                    <div className="stat place-items-center">
+                      <div className="stat-title">Total Chats</div>
+                      <div className="stat-value text-gray-600">{formatNumber(stats.totalChats)}</div>
+                    </div>
                   </div>
-
-                  <div className="stat place-items-center">
-                    <div className="stat-title">Total Words</div>
-                    <div className="stat-value text-gray-600">{formatNumber(stats.totalWords)}</div>
-                  </div>
-                </div>
-            
-                <div className="overflow-x-auto border border-gray-100 rounded-xl shadow">
-                  <table className="table">
-                    {/* head */}
-                    <thead className="bg-gray-600">
-                      <tr className="text-gray-50">
-                        <th>Name</th>
-                        <th>Total Words</th>
-                        <th>Total Chats</th>
-                        <th>Texts</th>
-                        <th>Images</th>
-                        <th>Videos</th>
-                        <th>Stickers</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                      {Object.entries(stats.persons).map(([person, stats]) => (
-                        <tr key={person}>
-                          <td className='font-semibold'>{person}</td>
-
-                          {stats.isHighestWords && stats.totalWords > 0 ? (
-                            <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalWords)}</td>
-                          ) : (
-                            <td className='text-center'>{formatNumber(stats.totalWords)}</td>
-                          )}
-
-                          {stats.isHighestChats && stats.totalChats > 0 ? (
-                            <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalChats)}</td>
-                          ) : (
-                            <td className='text-center'>{formatNumber(stats.totalChats)}</td>
-                          )}
-
-                          {stats.isHighestTexts && stats.totalTexts > 0 ? (
-                            <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalTexts)}</td>
-                          ) : (
-                            <td className='text-center'>{formatNumber(stats.totalTexts)}</td>
-                          )}
-
-                          {stats.isHighestImages && stats.totalImages > 0 ? (
-                            <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalImages)}</td>
-                          ) : (
-                            <td className='text-center'>{formatNumber(stats.totalImages)}</td>
-                          )}
-
-                          {stats.isHighestVideos && stats.totalVideos > 0 ? (
-                            <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalVideos)}</td>
-                          ) : (
-                            <td className='text-center'>{formatNumber(stats.totalVideos)}</td>
-                          )}
-
-                          {stats.isHighestStickers && stats.totalStickers > 0 ? (
-                            <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalStickers)}</td>
-                          ) : (
-                            <td className='text-center'>{formatNumber(stats.totalStickers)}</td>
-                          )}
+              
+                  <div className="overflow-x-auto border border-gray-100 rounded-xl shadow">
+                    <table className="table">
+                      {/* head */}
+                      <thead className="bg-gray-600">
+                        <tr className="text-gray-50">
+                          <th>Name</th>
+                          <th>Total Words</th>
+                          <th>Total Chats</th>
+                          <th>Texts</th>
+                          <th>Images</th>
+                          <th>Videos</th>
+                          <th>Stickers</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+
+                        {Object.entries(stats.persons).map(([person, stats]) => (
+                          <tr key={person}>
+                            <td className='font-semibold'>{person}</td>
+
+                            {stats.isHighestWords && stats.totalWords > 0 ? (
+                              <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalWords)}</td>
+                            ) : (
+                              <td className='text-center'>{formatNumber(stats.totalWords)}</td>
+                            )}
+
+                            {stats.isHighestChats && stats.totalChats > 0 ? (
+                              <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalChats)}</td>
+                            ) : (
+                              <td className='text-center'>{formatNumber(stats.totalChats)}</td>
+                            )}
+
+                            {stats.isHighestTexts && stats.totalTexts > 0 ? (
+                              <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalTexts)}</td>
+                            ) : (
+                              <td className='text-center'>{formatNumber(stats.totalTexts)}</td>
+                            )}
+
+                            {stats.isHighestImages && stats.totalImages > 0 ? (
+                              <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalImages)}</td>
+                            ) : (
+                              <td className='text-center'>{formatNumber(stats.totalImages)}</td>
+                            )}
+
+                            {stats.isHighestVideos && stats.totalVideos > 0 ? (
+                              <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalVideos)}</td>
+                            ) : (
+                              <td className='text-center'>{formatNumber(stats.totalVideos)}</td>
+                            )}
+
+                            {stats.isHighestStickers && stats.totalStickers > 0 ? (
+                              <td className='bg-green-400 text-white font-semibold text-center'>{formatNumber(stats.totalStickers)}</td>
+                            ) : (
+                              <td className='text-center'>{formatNumber(stats.totalStickers)}</td>
+                            )}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
+              
+              {/* Chat Visualizations */}
+              <div className="grid grid-cols-12 gap-6">
+
+                {/* Row 1 */}
+                <div className="col-span-12 lg:col-span-1 xl:col-span-1">
+                </div>
+
+                <div className="col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+                  <h2 className="font-semibold">Total Chats By Day</h2>
+                  <ApexChart type="bar" options={optionDaily} series={chartData.dataDaily} />
+                </div>
+
+                <div className="col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+                  <h2 className="font-semibold">Total Chats By Day (per Person)</h2>
+                  <ApexChart type="bar" options={optionDailyPerPerson} series={chartData.dataDailyPerPerson} />
+                </div>
+
+                <div className="col-span-12 lg:col-span-1 xl:col-span-1">
+                </div>
+
+                {/* Row 2 */}
+                <div className="col-span-12 lg:col-span-1 xl:col-span-1">
+                </div>
+
+                <div className="col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+                  <h2 className="font-semibold">Total Chats By Hour</h2>
+                  <ApexChart type="bar" options={optionHourly} series={chartData.dataHourly} />
+                </div>
+
+                <div className="col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+                  <h2 className="font-semibold">Total Chats By Hour (per Person)</h2>
+                  <ApexChart type="bar" options={optionHourlyPerPerson} series={chartData.dataHourlyPerPerson} />
+                </div>
+
+                <div className="col-span-12 lg:col-span-1 xl:col-span-1">
+                </div>
+
+                {/* Row 3 */}
+                <div className="col-span-12 lg:col-span-1 xl:col-span-1">
+                </div>
+
+                <div className="col-span-12  lg:col-span-10 xl:col-span-10 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
+                    <h2 className="font-semibold">Total Chats Over Time</h2>
+                    <ApexChart type="bar" options={optionTotalByTime} series={chartData.dataTotalPerDay} height={400} />
+                </div>
+
+                <div className="col-span-12 lg:col-span-1 xl:col-span-1">
+                </div>
+
+              </div>
+
             </div>
-            
-            {/* Chat Visualizations */}
-            <div className="grid grid-cols-12 gap-6">
+            )}
 
-              {/* Row 1 */}
-              <div className="col-span-12 lg:col-span-1 xl:col-span-1">
-              </div>
-
-              <div className="col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
-                <h2 className="font-semibold">Total Chats By Day</h2>
-                <ApexChart type="bar" options={optionDaily} series={chartData.dataDaily} />
-              </div>
-
-              <div className="col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
-                <h2 className="font-semibold">Total Chats By Day (per Person)</h2>
-                <ApexChart type="bar" options={optionDailyPerPerson} series={chartData.dataDailyPerPerson} />
-              </div>
-
-              <div className="col-span-12 lg:col-span-1 xl:col-span-1">
-              </div>
-
-              {/* Row 2 */}
-              <div className="col-span-12 lg:col-span-1 xl:col-span-1">
-              </div>
-
-              <div className="col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
-                <h2 className="font-semibold">Total Chats By Hour</h2>
-                <ApexChart type="bar" options={optionHourly} series={chartData.dataHourly} />
-              </div>
-
-              <div className="col-span-12 lg:col-span-5 xl:col-span-5 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
-                <h2 className="font-semibold">Total Chats By Hour (per Person)</h2>
-                <ApexChart type="bar" options={optionHourlyPerPerson} series={chartData.dataHourlyPerPerson} />
-              </div>
-
-              <div className="col-span-12 lg:col-span-1 xl:col-span-1">
-              </div>
-
-              {/* Row 3 */}
-              <div className="col-span-12 lg:col-span-1 xl:col-span-1">
-              </div>
-
-              <div className="col-span-12  lg:col-span-10 xl:col-span-10 hover:rounded-xl hover:shadow-xl p-4 transition delay-50 duration-150 ease-in-out border border-gray-100 rounded-xl">
-                  <h2 className="font-semibold">Total Chats Over Time</h2>
-                  <ApexChart type="bar" options={optionTotalByTime} series={chartData.dataTotalPerDay} height={400} />
-              </div>
-
-              <div className="col-span-12 lg:col-span-1 xl:col-span-1">
-              </div>
-
-            </div>
-
-          </div>
-          )}
-
-      </div>
-    </div>
+        </div>
+      </div>)
+    }
 
     {/* Footer */}
-    <footer className="mt-auto max-w-4xl text-center mx-auto py-4 px-4 sm:px-6 lg:px-8">
-      <p className="text-xs text-gray-600">© 2024</p>
+    <footer className="mt-auto max-w-4xl text-center mx-auto py-10 px-4 sm:px-6 lg:px-8">
+      <p className="text-xs text-gray-600"></p>
     </footer>
 
   </div>
