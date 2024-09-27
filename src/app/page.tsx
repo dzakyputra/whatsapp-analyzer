@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, DragEvent } from 'react';
 import JSZip from 'jszip';
 import dynamic from 'next/dynamic';
 import { ApexOptions } from 'apexcharts';
+import { useRouter } from 'next/router';
 
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -82,6 +83,12 @@ interface ChartData {
   dataTotalPerDay: TotalData[];
 }
 
+interface DraggableFile {
+  name: string;
+  url: string;
+  downloadUrl: string;
+}
+
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [stats, setStats] = useState<ChatStats | null>(null);
@@ -89,6 +96,32 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [isVisibleUploadBox, setIsVisibleUploadBox] = useState(true);
   const [isVisibleResult, setIsVisibleResult] = useState(false);
+
+  const draggableFiles: DraggableFile[] = [
+    { name: 'example1.txt', url: 'files/example1.txt', downloadUrl: window.location.href+'files/example1.txt' },
+  ];
+
+  const handleDragOver = (e: DragEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = async (e: DragEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const fileUrl = e.dataTransfer.getData('text/plain');
+    const host = window.location.href;
+
+    const response = await fetch(host+fileUrl);
+    const text = await response.text();
+    const blob = new Blob([text], { type: 'text/plain' });
+    const file = new File([blob], "example1.txt", { type: 'text/plain' });
+
+    setFile(file);
+    setError(null);
+    handleUpload(file);
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -162,6 +195,7 @@ export default function Home() {
 
     for (let line of lines) {
       line = line.replace(/\u200E/g, '')
+      line = line.trimStart()
       const chatStart = line.match(/^\[(\d{2}\/\d{2}\/\d{2}, \d{2}\.\d{2}\.\d{2})] (.*?): (.*)/);
       if (chatStart) {
         const [, timestamp, person] = chatStart;
@@ -178,6 +212,7 @@ export default function Home() {
 
     lines.forEach(line => {
       line = line.replace(/\u200E/g, '')
+      line = line.trimStart()
       // const chatStart = line.match(/^\[(.*?)\] (.*?):/);
       const chatStart = line.match(/^\[(\d{2}\/\d{2}\/\d{2}, \d{2}\.\d{2}\.\d{2})] (.*?): (.*)/);
       if (chatStart) {
@@ -655,26 +690,26 @@ export default function Home() {
           <div role="tablist" className="tabs tabs-bordered w-full">
             <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="WhatsApp" defaultChecked/>
             <div role="tabpanel" className="tab-content">
-
                 <label htmlFor="dropzone-file" className="mt-5 flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                    <p className="mb-2 text-sm text-gray-500 text-center"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                    <p className="text-xs text-gray-500 text-center">Whatsapp chat history data in .zip or .txt format</p>
+                  <div onDragOver={handleDragOver} onDrop={handleDrop} className="flex items-center justify-center" style={{width: '100%',height: '100%'}}>
+                    <div className="flex flex-col items-center justify-center pb-5">
+                      <svg className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                      <p className="mb-2 text-sm text-gray-500 text-center"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                      <p className="text-xs text-gray-500 text-center">Whatsapp chat history data in .zip or .txt format</p>
+                    </div>
+                    <input id="dropzone-file" type="file" className="hidden" onChange={handleFileChange} accept=".zip,.txt"/>
                   </div>
-                  <input id="dropzone-file" type="file" className="hidden" onChange={handleFileChange} accept=".zip,.txt"/>
                 </label>
-              
             </div>
 
             <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="Telegram" disabled />
             <div role="tabpanel" className="tab-content py-2">
-              tes bos
+              
             </div>
 
             <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="Discord" disabled />
             <div role="tabpanel" className="tab-content py-2">
-              tes bos
+              
             </div>
 
             {/* <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="How to Export Chat Data" />
@@ -682,6 +717,29 @@ export default function Home() {
           </div>
 
         </div>
+
+          
+
+        <ul>
+          {draggableFiles.map((file, index) => (
+
+            <div className="tooltip tooltip-right mt-5" data-tip="try this dummy data, drag me to the box">
+              <a href={file.downloadUrl} download>
+                <li
+                  key={index}
+                  draggable
+                  onDragStart={(e) => e.dataTransfer.setData('text/plain', file.url)}
+                  className="badge badge-outline"
+                  
+                >
+                  chat_data.txt
+                </li>
+              </a>
+            </div>
+
+
+          ))}
+        </ul>
 
         </div>
         <p className="mt-7 text-gray-400 text-xs italic text-center">

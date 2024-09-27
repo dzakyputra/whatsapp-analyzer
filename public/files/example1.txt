@@ -1,0 +1,163 @@
+    [19/01/23, 13.01.40] Bella: Hi Alex
+    [19/01/23, 13.02.16] Alex: Hi Bella, how are you?
+    [19/01/23, 13.02.57] Bella: Good, btw let's eat dinner together today
+    [19/01/23, 13.03.12] Alex: Sure, what time?
+    [19/01/23, 13.03.30] Bella: How about 7 PM?
+    [19/01/23, 13.03.45] Alex: Sounds good, where do you want to go?
+    [19/01/23, 13.04.01] Bella: How about that new Italian restaurant?
+    [19/01/23, 13.04.23] Alex: Oh yeah, I heard it’s really good!
+    [19/01/23, 13.04.50] Bella: Great! I’ll make a reservation.
+    [19/01/23, 13.05.11] Alex: Thanks, love ❤️
+    [19/01/23, 13.05.29] Bella: You're welcome 😘
+    [19/01/23, 17.30.40] Alex: Done with work for the day?
+    [19/01/23, 17.31.10] Bella: Yeah, just finished! You?
+    [19/01/23, 17.31.45] Alex: Same here. Heading home now.
+    [19/01/23, 17.32.12] Bella: Cool! I’ll meet you at the restaurant then.
+    [19/01/23, 17.32.30] Alex: See you there 😊
+    [19/01/23, 19.05.55] Bella: I’m here, just got us a table.
+    [19/01/23, 19.06.10] Alex: On my way! Just parking.
+    [19/01/23, 19.07.40] Alex: I see you! 😍
+    [19/01/23, 19.07.55] Bella: Haha, hurry up!
+    [19/01/23, 21.30.20] Alex: That was a great dinner!
+    [19/01/23, 21.30.50] Bella: Yeah, I loved the pasta.
+    [19/01/23, 21.31.05] Alex: Same here! We should come back sometime.
+    [19/01/23, 21.31.30] Bella: Definitely!
+    [19/01/23, 21.32.00] Alex: What should we do tomorrow?
+    [19/01/23, 21.32.22] Bella: How about a movie?
+    [19/01/23, 21.32.40] Alex: Sounds perfect.
+    [20/01/23, 10.15.55] Bella: Morning! Did you sleep well?
+    [20/01/23, 10.16.15] Alex: Morning! Yeah, slept like a baby 😄
+    [20/01/23, 10.16.45] Bella: Haha, good to know 😅
+    [20/01/23, 10.17.05] Alex: What’s your plan for today?
+    [20/01/23, 10.17.30] Bella: Meeting some friends for coffee, then free.
+    [20/01/23, 10.17.50] Alex: Nice, enjoy!
+    [20/01/23, 10.18.10] Bella: Thanks, I’ll text you after.
+    [20/01/23, 12.45.40] Bella: Just finished coffee, heading home now.
+    [20/01/23, 12.46.00] Alex: Cool! Want to meet up later?
+    [20/01/23, 12.46.25] Bella: Yeah! What time works for you?
+    [20/01/23, 12.46.45] Alex: Maybe around 5?
+    [20/01/23, 12.47.00] Bella: Perfect, let’s grab some ice cream 🍦
+    [20/01/23, 12.47.30] Alex: Yesss! Can’t wait 😋
+    [20/01/23, 16.55.50] Bella: I’m on my way!
+    [20/01/23, 16.56.10] Alex: Me too! Meet you at the ice cream shop.
+    [20/01/23, 16.56.40] Bella: Cool, see you there!
+    [20/01/23, 17.10.15] Alex: What flavor are you getting?
+    [20/01/23, 17.10.40] Bella: Definitely chocolate, and you?
+    [20/01/23, 17.11.05] Alex: Probably vanilla, like always.
+    [20/01/23, 17.11.25] Bella: Haha, classic Alex!
+    [20/01/23, 17.11.50] Alex: You know me too well 😄
+    [20/01/23, 17.12.10] Bella: I sure do 😊
+    [21/01/23, 08.20.50] Alex: Good morning! Hope you have a great day ahead!
+    [21/01/23, 08.21.10] Bella: Morning! Thanks, you too ❤️
+    [21/01/23, 08.21.45] Alex: Want to grab lunch later?
+    [21/01/23, 08.22.05] Bella: Yeah, sounds good! Where?
+    [21/01/23, 08.22.30] Alex: How about sushi?
+    [21/01/23, 08.22.50] Bella: Yum! Can’t wait 🍣
+    [21/01/23, 12.15.20] Bella: I’m here, where are you?
+    [21/01/23, 12.15.40] Alex: Just parking, be there in 2 minutes.
+    [21/01/23, 12.16.05] Bella: Cool! I got us a table.
+    [21/01/23, 12.16.25] Alex: You’re the best ❤️
+    [21/01/23, 12.16.45] Bella: I know, haha! 😄
+    [21/01/23, 14.35.30] Alex: That was so good!
+    [21/01/23, 14.35.50] Bella: Yeah, I’m so full now!
+    [21/01/23, 14.36.10] Alex: Same here! Time for a nap? 😆
+    [21/01/23, 14.36.30] Bella: Haha, yeah! I could use one.
+    [21/01/23, 16.50.00] Alex: How was your nap? 
+    [21/01/23, 16.50.20] Bella: So good! I feel refreshed.
+    [21/01/23, 16.50.50] Alex: Same, ready to conquer the world! 😄
+    [21/01/23, 16.51.15] Bella: Haha, let’s do it!
+    [22/01/23, 09.00.45] Alex: Morning, did you dream about me? 😏
+    [22/01/23, 09.01.05] Bella: Haha, of course! Did you?
+    [22/01/23, 09.01.30] Alex: Every night ❤️
+    [22/01/23, 09.02.10] Bella: You’re so sweet 😊
+    [22/01/23, 09.02.40] Alex: Only for you 😘
+    [22/01/23, 09.03.05] Bella: Awww, you always know what to say.
+    [22/01/23, 09.03.40] Alex: That’s because I mean it 😍
+    [22/01/23, 12.10.20] Bella: How’s work going today?
+    [22/01/23, 12.10.50] Alex: Pretty busy, but not too bad. You?
+    [22/01/23, 12.11.20] Bella: Same here, lots to do.
+    [22/01/23, 12.11.50] Alex: Let’s power through it 💪
+    [22/01/23, 12.12.10] Bella: You got it!
+    [22/01/23, 17.40.30] Alex: Done for the day! Want to go for a walk later?
+    [22/01/23, 17.41.00] Bella: Yeah, sounds nice. See you at 6?
+    [22/01/23, 17.41.25] Alex: Perfect, I’ll meet you at the park.
+    [22/01/23, 17.41.50] Bella: Looking forward to it 😊
+    [23/01/23, 08.30.10] Bella: Morning, ready for another busy day?
+    [23/01/23, 08.30.45] Alex: Morning! Yeah, I’ve got meetings all day 😩
+    [23/01/23, 08.31.05] Bella: Ugh, that sounds exhausting. You’ll get through it!
+    [23/01/23, 08.31.25] Alex: Thanks, love. What about you? What’s on your plate?
+    [23/01/23, 08.31.55] Bella: Mostly paperwork today, nothing exciting.
+    [23/01/23, 08.32.20] Alex: Paperwork sounds boring, but at least it’s not meetings!
+    [23/01/23, 08.32.45] Bella: Haha true! Maybe I’ll get through it quickly.
+    [23/01/23, 12.15.20] Alex: Just finished the first meeting, one down, five to go 😓
+    [23/01/23, 12.15.45] Bella: Hang in there! Want to grab lunch together?
+    [23/01/23, 12.16.10] Alex: I wish! I’m stuck here all day. How about dinner?
+    [23/01/23, 12.16.35] Bella: Dinner works! I’ll find a place.
+    [23/01/23, 12.16.55] Alex: You always pick the best places ❤️
+    [23/01/23, 12.17.20] Bella: Haha thanks! I’ll text you the details later.
+    [23/01/23, 17.50.10] Bella: I found a cozy little café, how about 7 PM?
+    [23/01/23, 17.50.30] Alex: Perfect, I can’t wait 😍
+    [23/01/23, 19.00.25] Bella: I’m here! Got us a table near the window.
+    [23/01/23, 19.00.45] Alex: On my way! Be there in 5.
+    [23/01/23, 19.05.30] Bella: I ordered your favorite drink!
+    [23/01/23, 19.05.50] Alex: You know me so well 😊
+    [23/01/23, 21.40.15] Bella: That dinner was amazing, loved the vibe of the place!
+    [23/01/23, 21.40.40] Alex: Yeah, the food was great too. We should come back.
+    [23/01/23, 21.41.00] Bella: For sure! Maybe for brunch next time?
+    [23/01/23, 21.41.25] Alex: You read my mind 😄
+    [24/01/23, 09.05.10] Bella: Morning! What’s your plan today?
+    [24/01/23, 09.05.40] Alex: Morning! I’ve got a presentation to give, nervous about it 😬
+    [24/01/23, 09.06.00] Bella: You’ll do great, just be yourself!
+    [24/01/23, 09.06.25] Alex: Thanks for the pep talk, I needed that ❤️
+    [24/01/23, 09.06.55] Bella: Anytime! Let me know how it goes.
+    [24/01/23, 11.50.30] Alex: Presentation went well! Got good feedback.
+    [24/01/23, 11.50.55] Bella: I knew it! Proud of you 😊
+    [24/01/23, 11.51.20] Alex: Thanks! Want to celebrate tonight?
+    [24/01/23, 11.51.45] Bella: Absolutely! What do you have in mind?
+    [24/01/23, 11.52.05] Alex: How about cooking dinner together?
+    [24/01/23, 11.52.30] Bella: That sounds fun! Let’s do it.
+    [24/01/23, 17.45.10] Bella: I’m picking up ingredients now, anything specific you want?
+    [24/01/23, 17.45.35] Alex: Maybe some fresh basil for pasta?
+    [24/01/23, 17.46.00] Bella: Got it! Can’t wait to start cooking.
+    [24/01/23, 19.05.20] Alex: Everything smells so good in here!
+    [24/01/23, 19.05.40] Bella: It’s going to taste even better 😉
+    [24/01/23, 19.06.10] Alex: You’re the best chef ❤️
+    [24/01/23, 19.06.35] Bella: Haha, we’re a great team!
+    [24/01/23, 21.20.50] Alex: That dinner was amazing! We should cook more often.
+    [24/01/23, 21.21.15] Bella: Agreed! I had so much fun 😊
+    [24/01/23, 21.21.40] Alex: Maybe we could try baking next time?
+    [24/01/23, 21.22.05] Bella: Ooo, I like that idea! Let’s bake cookies.
+    [25/01/23, 08.10.25] Bella: Morning, hope you slept well!
+    [25/01/23, 08.10.50] Alex: Morning! I did, thanks to you 😊
+    [25/01/23, 08.11.15] Bella: Aww, you’re sweet 😘
+    [25/01/23, 08.11.40] Alex: What’s your plan for today?
+    [25/01/23, 08.12.00] Bella: Just work, nothing too exciting.
+    [25/01/23, 08.12.25] Alex: Same here. Maybe we can go for a walk after?
+    [25/01/23, 08.12.50] Bella: Yeah, that sounds nice!
+    [25/01/23, 17.20.30] Bella: Ready for that walk?
+    [25/01/23, 17.20.50] Alex: Yup! Let’s meet at the park.
+    [25/01/23, 17.21.15] Bella: Cool, see you in 10!
+    [25/01/23, 17.21.40] Alex: On my way 🚶‍♂️
+    [25/01/23, 18.00.20] Bella: This was such a nice walk!
+    [25/01/23, 18.00.40] Alex: Yeah, I needed that fresh air 😊
+    [25/01/23, 18.01.00] Bella: Same! Feeling refreshed now.
+    [25/01/23, 18.01.25] Alex: Let’s do this more often.
+    [25/01/23, 18.01.50] Bella: Definitely! It’s a great way to unwind.
+    [26/01/23, 08.45.15] Bella: Morning! What’s on your agenda today?
+    [26/01/23, 08.45.40] Alex: Morning! Just some meetings, should be an easy day.
+    [26/01/23, 08.46.05] Bella: That’s good! Maybe we can watch a movie later?
+    [26/01/23, 08.46.30] Alex: Yeah! I’m in the mood for a comedy.
+    [26/01/23, 08.46.55] Bella: Sounds perfect! I’ll pick one.
+    [26/01/23, 18.30.45] Bella: Movie time! I picked a rom-com, hope that’s okay 😄
+    [26/01/23, 18.31.10] Alex: Of course! You know I love those.
+    [26/01/23, 18.31.30] Bella: Haha, let’s get started then!
+    [26/01/23, 20.15.25] Alex: That movie was hilarious, loved it!
+    [26/01/23, 20.15.45] Bella: Yeah, it was so fun! Let’s watch another one soon.
+    [26/01/23, 20.16.10] Alex: Definitely! Maybe we can have a movie marathon this weekend?
+    [26/01/23, 20.16.30] Bella: Ooo, I’m in!
+    [27/01/23, 08.30.20] Bella: Morning! Ready for the weekend?
+    [27/01/23, 08.30.45] Alex: Morning! Yes, can’t wait for some relaxation.
+    [27/01/23, 08.31.10] Bella: Same here! What should we do first?
+    [27/01/23, 08.31.35] Alex: How about brunch tomorrow?
+    [27/01/23, 08.31.55] Bella: Yes! I love brunch 😋
+    [27/01/23, 08.32.20] Alex: Me too! Let’s go to that new café.
