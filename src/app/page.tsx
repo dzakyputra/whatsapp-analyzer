@@ -98,7 +98,7 @@ export default function Home() {
   const [isVisibleResult, setIsVisibleResult] = useState(false);
 
   const draggableFiles: DraggableFile[] = [
-    { name: 'example1.txt', url: 'files/example1.txt', downloadUrl: window.location.href+'files/example1.txt' },
+    { name: 'example1.txt', url: 'files/example1.txt', downloadUrl: 'https://chatanalyzer.app/files/example1.txt' },
   ];
 
   const handleDragOver = (e: DragEvent<HTMLInputElement>) => {
@@ -723,8 +723,8 @@ export default function Home() {
         <ul>
           {draggableFiles.map((file, index) => (
 
-            <div className="tooltip tooltip-right mt-5" data-tip="try this dummy data, drag me to the box">
-              <a href={file.downloadUrl} download>
+            <div className="tooltip tooltip-right mt-5" data-tip="try this dummy data, drag me to the box" key={index}>
+              <a href={file.downloadUrl} download key={index}>
                 <li
                   key={index}
                   draggable
