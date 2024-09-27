@@ -723,18 +723,31 @@ export default function Home() {
         <ul>
           {draggableFiles.map((file, index) => (
 
-            <div className="tooltip tooltip-right mt-5" data-tip="try this dummy data, drag me to the box" key={index}>
-              <a href={file.downloadUrl} download key={index}>
-                <li
-                  key={index}
-                  draggable
-                  onDragStart={(e) => e.dataTransfer.setData('text/plain', file.url)}
-                  className="badge badge-outline"
-                  
-                >
-                  chat_data.txt
-                </li>
-              </a>
+            
+            <div className="flex items-center mt-5" key={index}>
+              <div className="tooltip tooltip-bottom" data-tip="click to download, or drag it directly to the box" key={index}>
+                <a href={file.downloadUrl} download key={index}>
+                
+
+                  <li
+                    key={index}
+                    draggable
+                    onDragStart={(e) => e.dataTransfer.setData('text/plain', file.url)}
+                    className="badge badge-outline text-xs"
+                    
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-3 mr-1">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+</svg>chat_data.txt
+                  </li>
+                </a>
+              </div>
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-4 ml-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+              </svg>
+              
+              <p className="text-xs ml-2"> try this dummy data</p>
             </div>
 
 
