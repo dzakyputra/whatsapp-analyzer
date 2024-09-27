@@ -627,18 +627,31 @@ export default function Home() {
         Chat Analyzer
       </h1>
       <p className="mt-3 text-gray-600">
-        Explore your chat history data through numbers and charts
+        Explore your chat data through numbers and charts
       </p>
     </div>
 
     {/* Upload Box */}
     {isVisibleUploadBox ? 
     
-      (<div className="mt-10 max-w-3xl w-full mx-auto px-4">
-        <div className="max-w-2xl mx-auto p-8 rounded-xl shadow-xl border border-gray-100">
+      (<div className="mt-5 max-w-2xl w-full mx-auto px-4">
 
+        {/* Callout */}
+        <div id="alert-additional-content-5" className="p-4 border border-gray-300 rounded-lg bg-gray-50 mb-5 text-xs" role="alert">
+          <div className="flex">
+            <svg className="flex-shrink-0 w-4 h-4 me-2 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <div className=" text-gray-800 ">
+              At present, our service is limited to WhatsApp conversations, but we're working on incorporating other messaging apps soon, such as Telegram, Discord, etc.
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-2xl mx-auto p-8 rounded-xl shadow-xl border border-gray-100">
         <div className="flex items-center">
 
+          {/* Tab */}
           <div role="tablist" className="tabs tabs-bordered w-full">
             <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="WhatsApp" defaultChecked/>
             <div role="tabpanel" className="tab-content">
@@ -678,7 +691,7 @@ export default function Home() {
     
       (<div className="mt-10 max-w-lg w-full mx-auto px-4 flex justify-center">
           <button onClick={toggleVisibility} className="text-white bg-gray-600 hover:bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center ">
-            Upload Another Data
+            Upload a new data
 
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="rtl:rotate-180 w-3.5 h-3.5 ms-2">
               <path strokeLinecap="round" stroke-width="3" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
