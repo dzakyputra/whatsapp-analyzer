@@ -98,7 +98,7 @@ export default function Home() {
   const [isVisibleResult, setIsVisibleResult] = useState(false);
 
   const draggableFiles: DraggableFile[] = [
-    { name: 'example1.txt', url: 'files/example1.txt', downloadUrl: 'https://chatanalyzer.app/files/example1.txt' },
+    { name: 'chat_data.txt', url: 'files/chat_data.txt', downloadUrl: 'https://chatanalyzer.app/files/chat_data.txt' },
   ];
 
   const handleDragOver = (e: DragEvent<HTMLInputElement>) => {
@@ -116,7 +116,7 @@ export default function Home() {
     const response = await fetch(host+fileUrl);
     const text = await response.text();
     const blob = new Blob([text], { type: 'text/plain' });
-    const file = new File([blob], "example1.txt", { type: 'text/plain' });
+    const file = new File([blob], "chat_data.txt", { type: 'text/plain' });
 
     setFile(file);
     setError(null);
